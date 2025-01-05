@@ -18,11 +18,10 @@ class UserRepository extends BaseRepository
 	 * @param int
 	 * @return object or null
      */
-	public function findUserTypeWallet(int $id): object|null {
+	public function findUserAndWalletByUserId(int $id): object|null {
 		return $this->model::select('users.id','users.name','users.cpf','users.email','w.value')
-					->join('wallets as w', 'w.id_user', '=', 'users.id')
+					->leftJoin('wallets as w', 'w.id_user', '=', 'users.id')
 					->where('users.id',$id)
-					->get()
 					->first();
 	}
 }

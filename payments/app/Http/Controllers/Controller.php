@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dictionary\Dictionary;
-use Exception;
+use App\Exceptions\GetUserException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -24,15 +24,6 @@ class Controller extends BaseController
     protected $validate;
 
     /**
-     * Function to throw a new exception
-     * @param array
-     * @return void
-     */
-    protected function exception(array $e): void {
-        throw new Exception($e['msg'],$e['code']);
-    }
-
-    /**
      * List all datas of repositrory
      */
     public function list() {
@@ -48,13 +39,11 @@ class Controller extends BaseController
     }
 
     public function delete($id) {
-        try {
-            $this->return = false;
-            if (!$this->service->find($id)) $this->exception($this->dictionary['error']['delete']);
-            $this->return = $this->service->delete($id);
-        } catch(Exception $e) {
-            $this->return = $e->getMessage()." - ".$e->getCode();
-        }
+        
+        $this->return = false;
+        if (!$this->service->find($id)) throw new DeleteException();
+        $this->return = $this->service->delete($id);
+            
         return $this->return;
     }
 

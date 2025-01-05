@@ -6,16 +6,16 @@ trait Dictionary {
 
     public $dictionary = [
         'error' => [
-            'getUserPayer' => [
-                'msg' => 'Error on get user payer!',
+            'getUser' => [
+                'msg' => 'Error on get user!',
                 'code' => 502
             ],
             'getTransfer' => [
                 'msg' => 'Error on get transfer!',
                 'code' => 503
             ],
-            'sendMessage' => [
-                'msg' => 'Error on send message to payer and payee!',
+            'getMoviment' => [
+                'msg' => 'Error on get moviment!',
                 'code' => 504
             ],
             'finishTransfer' => [
@@ -26,10 +26,10 @@ trait Dictionary {
                 'msg' => "Don't have money!",
                 'code' => 506
             ],
-            'storeNoSendMoney' => [
-                'msg' => "STORE don't send money to anyone!",
+            'valueEqualsZero' => [
+                'msg' => "Value to deposit or withdraw is equals zero!",
                 'code' => 507
-            ], 
+            ],
             'getTransferToReturnValues' => [
                 'msg' => "Error on get transfer to return values!",
                 'code' => 508
@@ -38,14 +38,18 @@ trait Dictionary {
                 'msg' => "Tranfer is not finished to return values!",
                 'code' => 509
             ],
-            'getUserPayee' => [
-                'msg' => 'Error on get user payee!',
-                'code' => 510
-            ], 
             'delete' => [
                 'msg' => 'Error on get User to delete!',
-                'code' => 511
+                'code' => 510
             ], 
+            'getMovimentToReturnValues' => [
+                'msg' => "Error on get moviment to return value!",
+                'code' => 511
+            ],
+            'movimentWasReturned' => [
+                'msg' => "Moviment was returned!",
+                'code' => 512
+            ]
         ]
     ];
 

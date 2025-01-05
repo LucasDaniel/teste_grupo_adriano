@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transfer extends Model
+class StateMoviment extends Model
 {
     use HasFactory;
 
-    protected $table = 'transfers';
+    protected $table = 'state_moviments';
 
     protected $fillable = [
-        'id_state_transfer',
-        'payer',
-        'payee',
-        'value'
-    ];            
+        'state'
+    ];
 }

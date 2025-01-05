@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('transfers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_state');
+            $table->unsignedBigInteger('id_state_transfer');
             $table->unsignedBigInteger('payer');
             $table->unsignedBigInteger('payee');
             $table->integer('value');
             $table->timestamps();
             
-            $table->foreign('id_state')->references('id')->on('state_transfers');
+            $table->foreign('id_state_transfer')->references('id')->on('state_transfers');
             $table->foreign('payer')->references('id')->on('wallets');
             $table->foreign('payee')->references('id')->on('wallets');
         });

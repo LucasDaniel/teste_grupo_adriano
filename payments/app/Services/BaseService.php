@@ -2,25 +2,16 @@
 
 namespace App\Services;
 
-use Exception;
 use Illuminate\Http\Request;
 
 class BaseService
 {
+
     /**
      * Service variables
      */
     protected $model;
     protected $repository;
-
-    /**
-     * Function to throw a new exception
-     * @param array
-     * @return void
-     */
-    protected function exception(array $e): void {
-        throw new Exception($e['msg'],$e['code']);
-    }
 
     /**
      * List all datas of repositrory
