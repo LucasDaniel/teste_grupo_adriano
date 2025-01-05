@@ -6,6 +6,7 @@ use App\Http\Controllers\TransferController;
 use App\Http\Controllers\MovimentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,25 +21,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/state_transfer/all',[StateTransferController::class, 'list']);
-Route::get('/state_transfer/{id}',[StateTransferController::class, 'show']);
+Route::middleware([Authenticate::class])->group(function () {
 
-Route::get('/state_moviment/all',[StateMovimentController::class, 'list']);
-Route::get('/state_moviment/{id}',[StateMovimentController::class, 'show']);
+    Route::get('/state_transfer/all',[StateTransferController::class, 'list']);
+    Route::get('/state_transfer/{id}',[StateTransferController::class, 'show']);
 
-Route::get('/user/all',[UserController::class, 'list']);
-Route::get('/user/{id}',[UserController::class, 'show']);
-Route::post('/user',[UserController::class, 'createNewUser']);
+    Route::get('/state_moviment/all',[StateMovimentController::class, 'list']);
+    Route::get('/state_moviment/{id}',[StateMovimentController::class, 'show']);
 
-Route::get('/wallet/all',[WalletController::class, 'list']);
-Route::get('/wallet/{id}',[WalletController::class, 'show']);
+    Route::get('/user/all',[UserController::class, 'list']);
+    Route::get('/user/{id}',[UserController::class, 'show']);
+    Route::post('/user',[UserController::class, 'createNewUser']);
 
-Route::get('/transfer/all',[TransferController::class, 'list']);
-Route::get('/transfer/{id}',[TransferController::class, 'show']);
-Route::post('/transfer/transfer',[TransferController::class, 'transfer']);
-Route::post('/transfer/returnTransfer',[TransferController::class, 'returnTransfer']);
+    Route::get('/wallet/all',[WalletController::class, 'list']);
+    Route::get('/wallet/{id}',[WalletController::class, 'show']);
 
-Route::get('/moviment/all',[MovimentController::class, 'list']);
-Route::get('/moviment/{id}',[MovimentController::class, 'show']);
-Route::post('/moviment/moviment',[MovimentController::class, 'moviment']);
-Route::post('/moviment/returnMoviment',[MovimentController::class, 'returnMoviment']);
+    Route::get('/transfer/all',[TransferController::class, 'list']);
+    Route::get('/transfer/{id}',[TransferController::class, 'show']);
+    Route::post('/transfer/transfer',[TransferController::class, 'transfer']);
+    Route::post('/transfer/returnTransfer',[TransferController::class, 'returnTransfer']);
+
+    Route::get('/moviment/all',[MovimentController::class, 'list']);
+    Route::get('/moviment/{id}',[MovimentController::class, 'show']);
+    Route::post('/moviment/moviment',[MovimentController::class, 'moviment']);
+    Route::post('/moviment/returnMoviment',[MovimentController::class, 'returnMoviment']);
+
+});
+
+Route::post('/authenticate',[UserController::class, 'authenticate']);

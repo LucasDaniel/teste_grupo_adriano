@@ -52,4 +52,10 @@ class UserService extends BaseService
         if ($value == 0) throw new ValueEqualsZeroException();
         if ($value < 0 && $user->value < -$value) throw new DontHaveMoneyException();
     }
+
+    public function verifyCpfPassword(array $arr) {
+        $cpf = $arr['cpf'];
+        $password = md5($arr['password']);
+    }
+
 }

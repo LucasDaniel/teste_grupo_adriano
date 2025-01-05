@@ -3,6 +3,7 @@
 namespace App\Validates;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class StateMovimentValidate extends BaseValidate {
 
