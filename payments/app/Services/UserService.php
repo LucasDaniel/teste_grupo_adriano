@@ -5,9 +5,13 @@ namespace App\Services;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\TransferService;
+use App\Services\WalletService;
+use App\Services\AdminAuthService;
 use App\Exceptions\GetUserException;
 use App\Exceptions\ValueEqualsZeroException;
 use App\Exceptions\DontHaveMoneyException;
+use App\Exceptions\NotAuthenticateException;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService
 {
@@ -15,22 +19,18 @@ class UserService extends BaseService
      * Constructor, set model and repository
      */
     public function __construct() {
-        $this->model = new User();
         $this->repository = new UserRepository();
     }
 
     /**
-     * Get user and Wallet by user id
+     * Create user, wallet and authenticate
      * @param array
-	 * @return object
+     * @return void
      */
-    public function createNewUser(array $arr): object {
-        $this->model->name = $arr['name'];
-        $this->model->cpf = $arr['cpf'];
-        $this->model->email = $arr['email'];
-        $this->model->password = $arr['password'];
-        $this->model->save();
-        return $this->model;
+    public function createNewUserWithWallet(array $request): void {
+        $user_id = $this->repository->createNewUser($request);
+        $walletService = new WalletService();
+        $walletService->createNewWallet($user_id);
     }
 
     /**
@@ -47,15 +47,12 @@ class UserService extends BaseService
     /**
      * Verify if value is 0, if true throw exception
      * Verify if user no have money to use
+     * @param object, int
+     * @return void
      */
-    public function verifyUserHaveMoney($user,$value) {
+    public function verifyUserHaveMoney(object $user, int $value): void {
         if ($value == 0) throw new ValueEqualsZeroException();
         if ($value < 0 && $user->value < -$value) throw new DontHaveMoneyException();
-    }
-
-    public function verifyCpfPassword(array $arr) {
-        $cpf = $arr['cpf'];
-        $password = md5($arr['password']);
     }
 
 }

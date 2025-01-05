@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('admin_auth', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('cpf',11)->unique();
-            $table->string('email')->unique();
+            $table->unsignedBigInteger('id_admin');
+            $table->string('token');
+            $table->dateTime('expiration');
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('id_admin')->references('id')->on('admin');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('admin_auth');
     }
 };

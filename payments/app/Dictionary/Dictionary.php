@@ -7,19 +7,19 @@ trait Dictionary {
     public $dictionary = [
         'error' => [
             'getUser' => [
-                'msg' => 'Error on get user!',
+                'msg' => "Error on get user!",
                 'code' => 502
             ],
             'getTransfer' => [
-                'msg' => 'Error on get transfer!',
+                'msg' => "Error on get transfer!",
                 'code' => 503
             ],
             'getMoviment' => [
-                'msg' => 'Error on get moviment!',
+                'msg' => "Error on get moviment!",
                 'code' => 504
             ],
             'finishTransfer' => [
-                'msg' => 'Error on finish transfer!',
+                'msg' => "Error on finish transfer!",
                 'code' => 505
             ],
             'dontHaveMoney' => [
@@ -39,7 +39,7 @@ trait Dictionary {
                 'code' => 509
             ],
             'delete' => [
-                'msg' => 'Error on get User to delete!',
+                'msg' => "Error on get User to delete!",
                 'code' => 510
             ], 
             'getMovimentToReturnValues' => [
@@ -49,7 +49,15 @@ trait Dictionary {
             'movimentWasReturned' => [
                 'msg' => "Moviment was returned!",
                 'code' => 512
-            ]
+            ],
+            'notAuthenticate' => [
+                'msg' => "Not Authenticated",
+                'code' => 513
+            ],
+            'expiredAuthenticate' => [
+                'msg' => "Expired Token",
+                'code' => 514
+            ],
         ]
     ];
 

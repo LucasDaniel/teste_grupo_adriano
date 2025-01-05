@@ -11,7 +11,6 @@ class StateMovimentService extends BaseService
      * Constructor, set model and repository
      */
     public function __construct() {
-        $this->model = new StateMoviment();
         $this->repository = new StateMovimentRepository();
     }
 }

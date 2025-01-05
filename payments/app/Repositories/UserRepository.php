@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository
 {
@@ -12,6 +13,20 @@ class UserRepository extends BaseRepository
 	public function __construct() {
 		$this->model = new User();
 	}
+
+	/**
+     * Get user and Wallet by user id
+     * @param int
+	 * @return object
+     */
+    public function createNewUser(array $arr): int {
+		$this->model = new User();
+        $this->model->name = $arr['name'];
+        $this->model->cpf = $arr['cpf'];
+        $this->model->email = $arr['email'];
+        $this->model->save();
+        return $this->model->id;
+    }
 
 	/**
      * Find the user his type and wallet by id
@@ -24,4 +39,16 @@ class UserRepository extends BaseRepository
 					->where('users.id',$id)
 					->first();
 	}
+
+	/**
+	 * Find user by cpf
+	 * @param string
+	 * @return object or null
+	 */
+	public function findUserByCpf(string $cpf): object|null {
+		return $this->model::select('users.id','users.name','users.cpf','users.email')
+					->where('users.cpf',$cpf)
+					->first();
+	}
+	
 }

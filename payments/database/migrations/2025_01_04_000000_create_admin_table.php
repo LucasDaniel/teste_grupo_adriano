@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_auth', function (Blueprint $table) {
+        Schema::create('admin', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
-            $table->string('token');
-            $table->dateTime('expiration');
+            $table->string('login');
+            $table->string('password');
             $table->timestamps();
-
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_auth');
+        Schema::dropIfExists('admin');
     }
 };

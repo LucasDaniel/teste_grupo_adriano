@@ -6,7 +6,8 @@ use App\Http\Controllers\TransferController;
 use App\Http\Controllers\MovimentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
-use App\Http\Middleware\Authenticate;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([Authenticate::class])->group(function () {
+Route::middleware([RedirectIfAuthenticated::class])->group(function () {
 
     Route::get('/state_transfer/all',[StateTransferController::class, 'list']);
     Route::get('/state_transfer/{id}',[StateTransferController::class, 'show']);
@@ -38,14 +39,14 @@ Route::middleware([Authenticate::class])->group(function () {
 
     Route::get('/transfer/all',[TransferController::class, 'list']);
     Route::get('/transfer/{id}',[TransferController::class, 'show']);
-    Route::post('/transfer/transfer',[TransferController::class, 'transfer']);
-    Route::post('/transfer/returnTransfer',[TransferController::class, 'returnTransfer']);
+    Route::post('/transfer',[TransferController::class, 'transfer']);
+    Route::post('/transfer/return',[TransferController::class, 'returnTransfer']);
 
     Route::get('/moviment/all',[MovimentController::class, 'list']);
     Route::get('/moviment/{id}',[MovimentController::class, 'show']);
-    Route::post('/moviment/moviment',[MovimentController::class, 'moviment']);
-    Route::post('/moviment/returnMoviment',[MovimentController::class, 'returnMoviment']);
+    Route::post('/moviment',[MovimentController::class, 'moviment']);
+    Route::post('/moviment/return',[MovimentController::class, 'returnMoviment']);
 
 });
 
-Route::post('/authenticate',[UserController::class, 'authenticate']);
+Route::post('/authenticate',[AdminController::class, 'authenticate']);

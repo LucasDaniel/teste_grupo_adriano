@@ -11,7 +11,6 @@ class WalletService extends BaseService
      * Constructor, set model and repository
      */
     public function __construct() {
-        $this->model = new Wallet();
         $this->repository = new WalletRepository();
     }
 
@@ -21,9 +20,7 @@ class WalletService extends BaseService
      * @return void
      */
     public function createNewWallet(int $id_user): void {
-        $this->model->id_user = $id_user;
-        $this->model->value = 0;
-        $this->model->save();
+        $this->repository->createNewWallet($id_user);
     }
 
     /**

@@ -12,10 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            AdminSeed::class,
+            AdminAuthSeed::class,
             StateTransferSeed::class,
             StateMovimentSeed::class,
             UserSeed::class,
-            WalletsSeed::class,
         ]);
     }
 }

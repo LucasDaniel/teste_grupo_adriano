@@ -10,7 +10,6 @@ class BaseService
     /**
      * Service variables
      */
-    protected $model;
     protected $repository;
 
     /**

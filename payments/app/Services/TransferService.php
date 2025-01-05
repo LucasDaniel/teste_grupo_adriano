@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Enums\EnumStateTransfer;
 use App\Models\Transfer;
 use App\Repositories\TransferRepository;
 use App\Services\UserService;
 use App\Services\WalletService;
-use App\Exceptions\GetTransfer;
-use App\Exceptions\TransferNotFinishedToReturnValues;
-use App\Exceptions\GetTransferToReturnValues;
+use App\Exceptions\GetTransferException;
+use App\Exceptions\TransferNotFinishedToReturnValuesException;
+use App\Exceptions\GetTransferToReturnValuesException;
 
 class TransferService extends BaseService
 {
@@ -16,7 +17,6 @@ class TransferService extends BaseService
      * Constructor, set model and repository
      */
     public function __construct() {
-        $this->model = new Transfer();
         $this->repository = new TransferRepository();
     }
 
@@ -73,13 +73,13 @@ class TransferService extends BaseService
         return true;
     }
 
-    private function verifyTransferFinished() {
-        if ($transfer->state == EnumStateTransfer::FINISHED->value) throw new TransferNotFinishedToReturnValues();
+    private function verifyTransferFinished($transfer) {
+        if ($transfer->state != EnumStateTransfer::FINISHED->value) throw new TransferNotFinishedToReturnValuesException();
     }
 
     private function verifyTransferExists($id_transfer) {
         $transfer = $this->repository->findWithState($id_transfer);
-        if (!$transfer) throw new GetTransferToReturnValues();
+        if (!$transfer) throw new GetTransferToReturnValuesException();
         return $transfer;
     }
 
@@ -91,7 +91,7 @@ class TransferService extends BaseService
 
     private function createTransfer($request) {
         $id_transfer = $this->repository->createTransfer($request);
-        if (!$id_transfer) throw new GetTransfer();
+        if (!$id_transfer) throw new GetTransferException();
         return $id_transfer;
     }
 

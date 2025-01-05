@@ -18,7 +18,6 @@ class MovimentService extends BaseService
      * Constructor, set model and repository
      */
     public function __construct() {
-        $this->model = new Moviment();
         $this->repository = new MovimentRepository();
     }
 

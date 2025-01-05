@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class UserSeed extends Seeder
 {
@@ -14,33 +14,30 @@ class UserSeed extends Seeder
      */
     public function run(): void
     {
+        $userService = new UserService();
+        $userService->createNewUserWithWallet([
+            "name" => "Lucas Daniel Beltrame",
+            "cpf" => "00000000001",
+            "email" => "lucas@email.com",
+        ]);
 
-        $u = new User();
-        $u->name = 'Lucas Daniel Beltrame';
-        $u->cpf = '34567898765';
-        $u->email = 'lucas@email.com';
-        $u->password = Hash::make('a');
-        $u->save();
+        $userService->createNewUserWithWallet([
+            "name" => "Lima Rodrigues",
+            "cpf" => "00000000002",
+            "email" => "lima@email.com",
+        ]);
 
-        $u = new User();
-        $u->name = 'Lima Rodrigues';
-        $u->cpf = '98765423456';
-        $u->email = 'lima@email.com';
-        $u->password = Hash::make('b');
-        $u->save();
+        $userService->createNewUserWithWallet([
+            "name" => "Padaria",
+            "cpf" => "00000000003",
+            "email" => "padaria@email.com",
+        ]);
 
-        $u = new User();
-        $u->name = 'Padaria';
-        $u->cpf = '45678987654';
-        $u->email = 'padaria@email.com';
-        $u->password = Hash::make('c');
-        $u->save();
+        $userService->createNewUserWithWallet([
+            "name" => "Farmacia",
+            "cpf" => "00000000004",
+            "email" => "farmacia@email.com",
+        ]);
 
-        $u = new User();
-        $u->name = 'Farmacia';
-        $u->cpf = '56789876543';
-        $u->email = 'farmacia@email.com';
-        $u->password = Hash::make('d');
-        $u->save();
     }
 }

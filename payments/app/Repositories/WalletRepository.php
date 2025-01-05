@@ -12,6 +12,17 @@ class WalletRepository extends BaseRepository
     public function __construct() {
         $this->model = new Wallet();
     }
+
+    /**
+     * Create new wallet with id_user
+     * @param int
+     * @return void
+     */
+    public function createNewWallet(int $id_user): void {
+        $this->model->id_user = $id_user;
+        $this->model->value = 0;
+        $this->model->save();
+    }
     
     /**
      * Update the user wallet value by id user
