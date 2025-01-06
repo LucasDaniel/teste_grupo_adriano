@@ -46,13 +46,6 @@ Adicione essa parte no seu arquivo .env
     DB_PASSWORD=
 ```
 
-Adicione no final do arquivo .env
-
-```bash
-    MOCK_FINISH_TRANSFER="https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc"
-    MOCK_RECEIVED_PAYMENT="https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6"
-```
-
 Abra um outro terminal, entre na pasta payments do laravel e Execute
 
 ```bash
@@ -75,11 +68,30 @@ Para executar o teste do PHPUnit
 
 ## Documentação da API
 
+Para usar quaisquer links é necessario criar um token de autenticação
+
+#### Criar Token de autenticação [POST]
+
+```bash
+    http://127.0.0.1:8000/api/authenticate
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `login`     | `string` | **Obrigatório**. Usuário a logar |
+| `password`  | `string` | **Obrigatório**. Password do usuário |
+
+**Obs:** Senha e password para gerar token: admin | admin
+
+Após gerar o token copia-lo e adicionar um header com o nome da chave "Authorization" de valor "Bearer ****"
+
 #### Retorna todos os itens [GET]
 
 ```http
+  http://127.0.0.1:8000/api/moviment/all
   http://127.0.0.1:8000/api/transfer/all
   http://127.0.0.1:8000/api/state_transfer/all
+  http://127.0.0.1:8000/api/state_moviment/all
   http://127.0.0.1:8000/api/user/all
   http://127.0.0.1:8000/api/wallet/all
 ```
@@ -87,8 +99,10 @@ Para executar o teste do PHPUnit
 #### Retorna um item [GET]
 
 ```http
+  http://127.0.0.1:8000/api/moviment/{id}
   http://127.0.0.1:8000/api/transfer/{id}
   http://127.0.0.1:8000/api/state_transfer/{id}
+  http://127.0.0.1:8000/api/state_moviment/{id}
   http://127.0.0.1:8000/api/user/{id}
   http://127.0.0.1:8000/api/wallet/{id}
 ```
@@ -100,29 +114,47 @@ Para executar o teste do PHPUnit
 #### Fazer uma transferencia [POST]
 
 ```bash
-    http://127.0.0.1:8000/api/transfer/transfer
+    http://127.0.0.1:8000/api/transfer
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `value`      | `int` | **Obrigatório**. Valor a ser transferido |
-| `payer`      | `int` | **Obrigatório**. Quem vai pagar |
-| `payee`      | `int` | **Obrigatório**. Quem vai receber |
-
-**Obs:** Usuarios lojistas não podem pagar uma transferência 
+| `value`     | `int` | **Obrigatório**. Valor a ser transferido |
+| `payer`     | `int` | **Obrigatório**. Id do usuario que será diminuido na carteira |
+| `payee`     | `int` | **Obrigatório**. Id do usuario que receberá o valor na carteira |
 
 #### Retornar uma transferencia [POST]
 
 ```bash
-    http://127.0.0.1:8000/api/transfer/returnTransfer
+    http://127.0.0.1:8000/api/transfer/return
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id_transfer`      | `int` | **Obrigatório**. O id da transferencia que foi feita |
+| `id_transfer` | `int` | **Obrigatório**. O id da transferencia que foi feita |
 
 **Obs:** A transferencia precisa esta finalizada para conseguir reverter
 
+#### Fazer um depósito [POST]
+
+```bash
+    http://127.0.0.1:8000/api/moviment
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id_user`   | `int` | **Obrigatório**. Id do usuario a fazer a movimentação |
+| `value`     | `int` | **Obrigatório**. Quantidade a depositar/retirar |
+
+#### Retornar uma transferencia [POST]
+
+```bash
+    http://127.0.0.1:8000/api/moviment/return
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id_transfer`      | `int` | **Obrigatório**. O id da movimentação que foi feita |
 
 ## Possiveis problemas
 
