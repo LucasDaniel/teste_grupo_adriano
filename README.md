@@ -60,12 +60,6 @@ Provavelmente vai lhe pedir para criar a base de dados payment
     php artisan db:seed
 ```
 
-Para executar o teste do PHPUnit
-
-```bash
-    php artisan app:test 
-```
-
 ## Documentação da API
 
 Para usar quaisquer links é necessario criar um token de autenticação
